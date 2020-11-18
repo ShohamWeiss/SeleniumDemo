@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
+using System.IO;
 using System.Threading;
 
 namespace PS5Bot
@@ -23,9 +24,16 @@ namespace PS5Bot
             //Thread.Sleep(2000);
             Screenshot image = ((ITakesScreenshot)driver).GetScreenshot();
             //Save the screenshot
-            image.SaveAsFile("C:/temp/Screenshot.png");
+            string imagePath = "C:/temp/Screenshot.png";
+            image.SaveAsFile(imagePath);
 
-            ImageFactory Load(string imagePath);
+            //ImageFactory imageFactory = new ImageFactory();
+            //imageFactory.Load(imagePath);
+            byte[] photoBytes = File.ReadAllBytes(imagePath);
+            if (image.AsByteArray == photoBytes)
+            {
+                driver.Url = "https://direct.playstation.com/en-us/consoles/console/playstation5-digital-edition-console.3005817";
+            }
         }
     }
 }
