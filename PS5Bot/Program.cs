@@ -11,7 +11,7 @@ namespace PS5Bot
     {
         static void Main(string[] args)
         {
-            IWebDriver driver = new ChromeDriver(@"C:\Users\regl9\source\repos\SeleniumDemo\SeleniumDemo\bin\Debug\netcoreapp3.1");
+            IWebDriver driver = new ChromeDriver(@"C:\Users\shoha\source\repos\SeleniumDemo\PS5Bot\bin\Debug\netcoreapp3.1");
             //IWebDriver driver = new ChromeDriver(@"C:\Users\regl9\source\repos\SeleniumDemo\SeleniumDemo\bin\Debug\netcoreapp3.1");
 
             // This will open up the URL 
@@ -25,13 +25,14 @@ namespace PS5Bot
             Thread.Sleep(1000);
             Screenshot image = ((ITakesScreenshot)driver).GetScreenshot();
             //Save the screenshot
-            image.SaveAsFile(@"C:\Users\regl9\source\repos\SeleniumDemo\imgs\Screenshot.png");
-            //image.SaveAsFile(@"C:\Users\regl9\source\repos\SeleniumDemo\imgs\Screenshot.png");
 
-            //ImageFactory imageFactory = new ImageFactory();
-            //imageFactory.Load(imagePath);
+            //string imagePath = @"C:\Users\regl9\source\repos\SeleniumDemo\imgs\Screenshot.png";
+            string imagePath = @"C:\Temp\Screenshot.png";
+
+            image.SaveAsFile(imagePath);
+
             byte[] photoBytes = File.ReadAllBytes(imagePath);
-            if (image.AsByteArray == photoBytes)
+            if (image.AsByteArray.Equals(photoBytes))
             {
                 driver.Url = "https://direct.playstation.com/en-us/consoles/console/playstation5-digital-edition-console.3005817";
             }
