@@ -9,7 +9,7 @@ namespace SeleniumDemo
     {
         static void Main(string[] args)
         {
-            IWebDriver driver = new ChromeDriver(@"C:\Users\shoha\source\repos\SeleniumDemo\SeleniumDemo\bin\Debug\netcoreapp3.1");
+            IWebDriver driver = new ChromeDriver(@"C:\Users\regl9\source\repos\SeleniumDemo\SeleniumDemo\bin\Debug\netcoreapp3.1");
 
             // This will open up the URL 
             driver.Url = "https://www.facebook.com/";
