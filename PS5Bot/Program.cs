@@ -30,8 +30,7 @@ namespace PS5Bot
             bool run = true;
             while (run)
             {
-                //driver.Navigate().GoToUrl(@"https://direct.playstation.com/en-us/consoles/console/playstation5-digital-edition-console.3005817");
-                driver.Navigate().GoToUrl(@"https://direct.playstation.com/en-us/consoles/console/");
+                driver.Navigate().GoToUrl(@"https://direct.playstation.com/en-us/consoles/console/playstation5-digital-edition-console.3005817");
                 Thread.Sleep(1000);
                 Screenshot image = ((ITakesScreenshot)driver).GetScreenshot();
                 byte[] imageBytes = image.AsByteArray;
