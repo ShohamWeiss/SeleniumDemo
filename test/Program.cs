@@ -7,6 +7,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Threading;
+using System.Windows.Forms;
 using TestStack.White.InputDevices;
 
 namespace PS5Bot
@@ -15,7 +16,7 @@ namespace PS5Bot
     {
         static void Main(string[] args)
         {
-            IWebDriver driver = new ChromeDriver(@"C:\Users\shoha\source\repos\SeleniumDemo\PS5Bot\bin\Debug\netcoreapp3.1");
+            IWebDriver driver = new ChromeDriver(@"C:\Users\shoha\source\repos\SeleniumDemo\test\bin\Debug");
             //IWebDriver driver = new ChromeDriver(@"C:\Users\regl9\source\repos\SeleniumDemo\SeleniumDemo\bin\Debug\netcoreapp3.1");
 
             string imagePath = @"C:\Temp\Screenshot.png";
@@ -47,7 +48,9 @@ namespace PS5Bot
                         outputDevice.Stop();
                         run = false;
                     }
-                    //Point point = Mouse.Instance.Curso;
+                    Point point = Cursor.Position;
+                    Cursor.Position = point;
+                    Mouse.Instance.Click();
                 }
                 Thread.Sleep(1000);
             }

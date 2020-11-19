@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeleniumDemo", "SeleniumDemo\SeleniumDemo.csproj", "{9E7EA7DD-1C2D-428A-8FDC-126126782959}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PS5Bot", "PS5Bot\PS5Bot.csproj", "{F385D3B5-8D5E-4A68-9254-7AE21FFB6128}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PS5Bot", "PS5Bot\PS5Bot.csproj", "{F385D3B5-8D5E-4A68-9254-7AE21FFB6128}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PS5Getter", "test\PS5Getter.csproj", "{E98EBBAD-D722-4A77-B3B4-5996EAC0DDD2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{F385D3B5-8D5E-4A68-9254-7AE21FFB6128}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F385D3B5-8D5E-4A68-9254-7AE21FFB6128}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F385D3B5-8D5E-4A68-9254-7AE21FFB6128}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E98EBBAD-D722-4A77-B3B4-5996EAC0DDD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E98EBBAD-D722-4A77-B3B4-5996EAC0DDD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E98EBBAD-D722-4A77-B3B4-5996EAC0DDD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E98EBBAD-D722-4A77-B3B4-5996EAC0DDD2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
