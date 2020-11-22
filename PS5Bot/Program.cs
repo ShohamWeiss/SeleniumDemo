@@ -21,6 +21,7 @@ namespace PS5Bot
 
             //string imagePath = @"C:\Temp\Screenshot.png";
             string imagePath = @"C:\Users\regl9\source\repos\SeleniumDemo\imgs\Screenshot.png";
+            string imagePath1 = @"C:\Users\regl9\source\repos\SeleniumDemo\imgs\imgs1\Screenshot.png";
             driver.Navigate().GoToUrl(@"https://www.bestbuy.com/site/sony-playstation-5-digital-edition-console/6430161.p?skuId=6430161");
             Thread.Sleep(5000);
             ((IJavaScriptExecutor)driver).ExecuteScript("window.scrollTo(0, 250)");
@@ -43,6 +44,7 @@ namespace PS5Bot
                 ((IJavaScriptExecutor)driver).ExecuteScript("window.scrollTo(0, 250)");
                 Thread.Sleep(1000);
                 Screenshot image1 = ((ITakesScreenshot)driver).GetScreenshot();
+                image1.SaveAsFile(imagePath1);
                 byte[] imageBytes = image1.AsByteArray;
 
                 if (!areEqual(photoBytes, imageBytes))
