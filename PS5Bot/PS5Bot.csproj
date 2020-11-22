@@ -26,6 +26,7 @@
     <PackageReference Include="NAudio" Version="1.10.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="87.0.4280.2000" />
+    <PackageReference Include="ServiceStack.Common" Version="5.10.2" />
     <PackageReference Include="TestStack.White" Version="0.13.3" />
   </ItemGroup>
 
