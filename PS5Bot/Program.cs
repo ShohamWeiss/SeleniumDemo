@@ -29,33 +29,33 @@ namespace PS5Bot
             IWebDriver driver = new ChromeDriver(@"C:\Users\shoha\source\repos\SeleniumDemo\PS5Bot\bin\Debug\netcoreapp3.1");
             //IWebDriver driver = new ChromeDriver(@"C:\Users\regl9\source\repos\SeleniumDemo\SeleniumDemo\bin\Debug\netcoreapp3.1");
 
-            string imagePath = @"C:\Temp\Screenshot.png";
+            //string imagePath = @"C:\Temp\Screenshot.png";
             //string imagePath = @"C:\Users\regl9\source\repos\SeleniumDemo\imgs\Screenshot.png";
-            Screenshot image = scrollAndScreenshot(driver);
-            image = scrollAndScreenshot(driver);
-            image.SaveAsFile(imagePath);
+            //string imagePath1 = @"C:\Users\regl9\source\repos\SeleniumDemo\imgs\imgs1\Screenshot.png";
+            //Screenshot image = scrollAndScreenshot(driver);
+            //image = scrollAndScreenshot(driver);
+            //image.SaveAsFile(imagePath);
 
-            byte[] photoBytes = File.ReadAllBytes(imagePath); //load from file
+            //byte[] photoBytes = File.ReadAllBytes(imagePath); //load from file
 
-            //string audioFile = @"C:\Windows\Media\Alarm01.wav";
-            string audioFile = @"C:\Users\shoha\Music\Video Projects\Madcon - beggin lyrics.mp3";
+            string audioFile = @"C:\Windows\Media\Alarm01.wav";
+            //string audioFile = @"C:\Users\shoha\Music\Video Projects\Madcon - beggin lyrics.mp3";
             var audio = new AudioFileReader(audioFile);
             var outputDevice = new WaveOutEvent();
 
-            IWebElement button = driver.FindElement(By.XPath("/html/body/div[3]/main/div[2]/div[3]/div[2]/div/div/div[8]/div[1]/div/div/div/button"));
-            if (button.Enabled)
-            {
-                string regis = "islikepenis";
-            }
+            
 
             bool run = true;
             while (run)
             {
-                //driver.Navigate().GoToUrl(@"https://direct.playstation.com/en-us/consoles/console/playstation5-digital-edition-console.3005817");
-                Screenshot image1 = scrollAndScreenshot(driver);
-                byte[] imageBytes = image1.AsByteArray;
-
-                if (!areEqual(photoBytes, imageBytes))
+                //driver.Navigate().GoToUrl(@"https://www.bestbuy.com/site/sony-playstation-5-digital-edition-console/6430161.p?skuId=6430161");
+                driver.Navigate().GoToUrl(@"https://www.target.com/p/playstation-5-digital-edition-console/-/A-81114596#lnk=sametab");
+                Thread.Sleep(3000);
+                //IWebElement button = driver.FindElement(By.XPath("/html/body/div[3]/main/div[2]/div[3]/div[2]/div/div/div[8]/div[1]/div/div/div/button"));
+                IWebElement button = driver.FindElement(By.XPath("/html/body/div[1]/div/div[5]/div/div[2]/div[3]/div[1]/div/div[1]/div/div[1]"));
+                string buttontext = button.Text;
+                string buttonchecktext = "Out of stock in stores near you";
+                if (!(buttontext == "Out of stock in stores near you"))
                 {
                     outputDevice.Init(audio);
                     outputDevice.Play();
@@ -65,12 +65,29 @@ namespace PS5Bot
                         outputDevice.Stop();
                         run = false;
                     }
-                    //Point point = Mouse.Instance.Curso;
                 }
+                //driver.Navigate().GoToUrl(@"https://direct.playstation.com/en-us/consoles/console/playstation5-digital-edition-console.3005817");
+                //Screenshot image1 = scrollAndScreenshot(driver);
+                //image1.SaveAsFile(imagePath1);
+                //byte[] imageBytes = image1.AsByteArray;
+
+                //if (!AreEqual(photoBytes, imageBytes))
+                //{
+                //    outputDevice.Init(audio);
+                //    outputDevice.Play();
+                //    while (outputDevice.PlaybackState == PlaybackState.Playing)
+                //    {
+                //        Thread.Sleep(10000);
+                //        outputDevice.Stop();
+                //        run = false;
+                //    }
+
+                //    //Point point = Mouse.Instance.Curso;
+                //}
                 Thread.Sleep(1000);
             }
         }
-        static bool areEqual(byte[] a, byte[] b)
+        static bool AreEqual(byte[] a, byte[] b)
         {
             if (a.Length != b.Length)
             {
@@ -88,10 +105,12 @@ namespace PS5Bot
 
         static Screenshot scrollAndScreenshot(IWebDriver driver)
         {
-            driver.Navigate().GoToUrl(@"https://www.bestbuy.com/site/sony-playstation-5-digital-edition-console/6430161.p?skuId=6430161");
-            Thread.Sleep(5000);
-            ((IJavaScriptExecutor)driver).ExecuteScript("window.scrollTo(0, 250)");
-            Thread.Sleep(10000);
+            //driver.Navigate().GoToUrl(@"https://www.bestbuy.com/site/sony-playstation-5-digital-edition-console/6430161.p?skuId=6430161");
+            driver.Navigate().GoToUrl(@"https://direct.playstation.com/en-us/consoles/console/playstation5-digital-edition-console.3005817");
+
+            Thread.Sleep(3000);
+            //((IJavaScriptExecutor)driver).ExecuteScript("window.scrollTo(0, 250)");
+            //Thread.Sleep(10000);
             Screenshot image = ((ITakesScreenshot)driver).GetScreenshot();
             return image;
         }
