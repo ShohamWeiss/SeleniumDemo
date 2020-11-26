@@ -5,9 +5,11 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using ServiceStack;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 using TestStack.White.InputDevices;
 
 namespace PS5Bot
@@ -16,8 +18,16 @@ namespace PS5Bot
     {
         static void Main(string[] args)
         {
-            //IWebDriver driver = new ChromeDriver(@"C:\Users\shoha\source\repos\SeleniumDemo\PS5Bot\bin\Debug\netcoreapp3.1");
-            IWebDriver driver = new ChromeDriver(@"C:\Users\regl9\source\repos\SeleniumDemo\SeleniumDemo\bin\Debug\netcoreapp3.1");
+            //List of Bots
+            List<IWebDriver> drivers = new List<IWebDriver>();
+
+            Parallel.ForEach(drivers, (driver) =>
+            {
+
+            });
+
+            IWebDriver driver = new ChromeDriver(@"C:\Users\shoha\source\repos\SeleniumDemo\PS5Bot\bin\Debug\netcoreapp3.1");
+            //IWebDriver driver = new ChromeDriver(@"C:\Users\regl9\source\repos\SeleniumDemo\SeleniumDemo\bin\Debug\netcoreapp3.1");
 
             //string imagePath = @"C:\Temp\Screenshot.png";
             //string imagePath = @"C:\Users\regl9\source\repos\SeleniumDemo\imgs\Screenshot.png";
