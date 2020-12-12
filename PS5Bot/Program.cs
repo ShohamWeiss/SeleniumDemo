@@ -46,13 +46,36 @@ namespace PS5Bot
             while (run)
             {
                 //driver.Navigate().GoToUrl(@"https://www.bestbuy.com/site/sony-playstation-5-digital-edition-console/6430161.p?skuId=6430161");
-                driver.Navigate().GoToUrl(@"https://www.target.com/p/playstation-5-digital-edition-console/-/A-81114596#lnk=sametab");                
-                Thread.Sleep(3000);
+                //driver.Navigate().GoToUrl(@"https://www.target.com/p/playstation-5-digital-edition-console/-/A-81114596#lnk=sametab");
+                driver.Navigate().GoToUrl(@"https://www.walmart.com/ip/Marvel-s-Spider-Man-Miles-Morales-Ultimate-Launch-Edition-Sony-PlayStation-5/795159051");
+                Thread.Sleep(1000);
                 //IWebElement button = driver.FindElement(By.XPath("/html/body/div[3]/main/div[2]/div[3]/div[2]/div/div/div[8]/div[1]/div/div/div/button"));
-                IWebElement button = driver.FindElement(By.XPath("/html/body/div[1]/div/div[5]/div/div[2]/div[3]/div[1]/div/div[1]/div/div[1]"));
-                string buttontext = button.Text;
-                string buttonchecktext = "Out of stock in stores near you";
-                while (!(buttontext == "Out of stock in stores near you"))
+                //IWebElement button = driver.FindElement(By.XPath("/html/body/div[1]/div/div[5]/div/div[2]/div[3]/div[1]/div/div[1]/div/div[1]"));
+                //IWebElement button = driver.FindElement(By.XPath("/ html / body / div[1] / div[1] / div / div[2] / div / div[1] / div[1] / div[1] / div / div / div / div / div[3] / div[5] / div / div[3] / div / div[2] / div[1] / section / div[2] / div / div / div / div / div / b"));
+                //IWebElement button;
+                string buttontext = null;
+                try
+                {
+                    IWebElement button = driver.FindElement(By.XPath("/ html / body / div[1] / div[1] / div / div[2] / div / div[1] / div[1] / div[1] / div / div / div / div / div[3] / div[5] / div / div[3] / div / div[2] / div[1] / section / div[2] / div / div / div / div / div / b"));
+                    buttontext = button.Text;
+                }
+
+                catch (OpenQA.Selenium.NoSuchElementException)
+                {
+                    outputDevice.Init(audio);
+                    outputDevice.Play();
+                    while (outputDevice.PlaybackState == PlaybackState.Playing)
+                    {
+                        Thread.Sleep(10000);
+                        outputDevice.Stop();
+                        run = false;
+                    }
+                }
+                //IWebElement button = driver.FindElement(By.XPath("/ html / body / div[1] / div[1] / div / div[2] / div / div[1] / div[1] / div[1] / div / div / div / div / div[3] / div[5] / div / div[3] / div / div[2] / div[1] / section / div[2] / div / div / div / div / div / b"));
+                //string buttontext = button.Text;
+                string walmarttext = "Out of stock";
+                string targettext = "Out of stock in stores near you";
+                if (!(buttontext == walmarttext))
                 {
                     var audio = new AudioFileReader(audioFile);
                     outputDevice.Init(audio);
