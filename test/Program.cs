@@ -4,8 +4,10 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using TestStack.White.InputDevices;
@@ -16,59 +18,64 @@ namespace PS5Bot
     {
         static void Main(string[] args)
         {
-            IWebDriver driver = new ChromeDriver(@"C:\Users\shoha\source\repos\SeleniumDemo\test\bin\Debug");
-            //IWebDriver driver = new ChromeDriver(@"C:\Users\regl9\source\repos\SeleniumDemo\SeleniumDemo\bin\Debug\netcoreapp3.1");
+            IWebDriver driver = new ChromeDriver(@"C:\Users\shoha\source\repos\SeleniumDemo\test\bin\Debug"); // Shoham
+            string savedImagePath = @"C:\Temp\Screenshot.png"; // Shoham
 
-            string imagePath = @"C:\Temp\Screenshot.png";
-            //string imagePath = @"C:\Users\regl9\source\repos\SeleniumDemo\imgs\Screenshot.png";
+            //IWebDriver driver = new ChromeDriver(@"C:\Users\regl9\source\repos\SeleniumDemo\SeleniumDemo\bin\Debug\netcoreapp3.1"); // Regis
+            //string imagePath = @"C:\Users\regl9\source\repos\SeleniumDemo\imgs\Screenshot.png"; // Regis
 
-            //image.SaveAsFile(imagePath);
-
-            byte[] photoBytes = File.ReadAllBytes(imagePath);
-
-            string audioFile = @"C:\Users\shoha\Music\Video Projects\Madcon - beggin lyrics.mp3";
+            string audioFile = @"C:\Windows\Media\Alarm01.wav"; // Set up alarm
             var audio = new AudioFileReader(audioFile);
             var outputDevice = new WaveOutEvent();
+
+            //****//For taking the screenshot the first time
+            //driver.Navigate().GoToUrl(@"https://direct.playstation.com/en-us/consoles/console/playstation5-digital-edition-console.3005817");
+            //Thread.Sleep(1000);
+            //Screenshot imageToSave = ((ITakesScreenshot)driver).GetScreenshot();
+            //Bitmap img = Image.FromStream(new MemoryStream(imageToSave.AsByteArray)) as Bitmap;
+            //img.Save(savedImagePath);
+            //****//            
+
+            Bitmap savedImage = (Bitmap)Bitmap.FromFile(savedImagePath);
+            List<bool> savedImageList = GetHash(savedImage);
+            byte[] savedImageBytes = File.ReadAllBytes(savedImagePath); // Read in saved screenshot
 
             bool run = true;
             while (run)
             {
                 driver.Navigate().GoToUrl(@"https://direct.playstation.com/en-us/consoles/console/playstation5-digital-edition-console.3005817");
                 Thread.Sleep(1000);
-                Screenshot image = ((ITakesScreenshot)driver).GetScreenshot();
-                byte[] imageBytes = image.AsByteArray;
+                Screenshot currentImage = ((ITakesScreenshot)driver).GetScreenshot();
+                Bitmap currentBitmap = Image.FromStream(new MemoryStream(currentImage.AsByteArray)) as Bitmap;
+                List<bool> currentImageList = GetHash(currentBitmap);
 
-                if (!areEqual(photoBytes, imageBytes))
+                if (!savedImageList.SequenceEqual(currentImageList))
                 {
                     outputDevice.Init(audio);
                     outputDevice.Play();
                     while (outputDevice.PlaybackState == PlaybackState.Playing)
                     {
-                        Thread.Sleep(10000);
+                        Thread.Sleep(10000); // Alarm will play for 10 seconds
                         outputDevice.Stop();
                         run = false;
                     }
-                    Point point = Cursor.Position;
-                    Cursor.Position = point;
-                    Mouse.Instance.Click();
                 }
-                Thread.Sleep(1000);
             }
         }
-        static bool areEqual(byte[] a, byte[] b)
+        public static List<bool> GetHash(Bitmap bmpSource)
         {
-            if (a.Length != b.Length)
+            List<bool> lResult = new List<bool>();
+            //create new image with 16x16 pixel
+            Bitmap bmpMin = new Bitmap(bmpSource, new Size(16, 16));
+            for (int j = 0; j < bmpMin.Height; j++)
             {
-                return false;
-            }
-            for (int i = 0; i < a.Length; i++)
-            {
-                if (!a[i].Equals(b[i]))
+                for (int i = 0; i < bmpMin.Width; i++)
                 {
-                    return false;
+                    //reduce colors to true / false                
+                    lResult.Add(bmpMin.GetPixel(i, j).GetBrightness() < 0.5f);
                 }
             }
-            return true;
+            return lResult;
         }
     }
 }
